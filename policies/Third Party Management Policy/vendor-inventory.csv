@@ -1,0 +1,2 @@
+Vendor Name,Owner,Service Description,Data Categories,Prod Access (Y/N),Risk Tier,Last Assessment,Next Review Due,Assurance (SOC2/ISO),DPA (Y/N),Subprocessors Link,Regions,SSO/MFA (Y/N),Encryption (At Rest/In Transit),Notes
+sample-vendor,Mack Myers,Cloud logging platform,Customer data; logs,Y,High,2025-08-01,2026-08-01,SOC 2 Type II,Y,https://example.com/subprocessors,US/EU,Y,"AES-256 / TLS 1.2+",Initial entry
