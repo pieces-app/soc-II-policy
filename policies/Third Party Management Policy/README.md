@@ -48,6 +48,9 @@ Add or update rows for the following services. For each, fill Owner, Data Catego
 - Carta (equity/data room reference in HR policy)
 - Shortwave (email client – if in use)
 - Descope / IdP (if applicable; confirm actual provider)
+- Hugging Face
+- DigiCert
+- Azure and Microsoft 365
 - Others
 
 Developer tools & media (add if used)

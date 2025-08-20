@@ -24,7 +24,7 @@ related:
     - Vulnerability Management Procedure
   controls:
     - GitHub Enterprise Security (branch protections, required reviews, GHAS)
-    - Google Cloud (workload identity federation for CI)
+    - Google Cloud (workload identity federation for CI, Artifact Registry attestations)
 repo: https://github.com/pieces-app/soc-II-policy
 ---
 
@@ -112,7 +112,7 @@ Testing of security functionality shall be performed at defined periods during t
 
 ## **Application Vulnerability Management**
 
-- Application code is scanned prior to deployment using SAST/SCA (e.g., GitHub Advanced Security).  
+- Application code is scanned prior to deployment using SAST/SCA (e.g., GitHub Advanced Security), enforced org‑wide on production repositories.  
 - Critical/high vulnerabilities are triaged promptly; patches that materially impact security should be deployed within 90 days of discovery (expedited for critical issues).  
 - Dependencies are monitored continuously; SBOMs are generated for releases where applicable.
 
@@ -124,7 +124,7 @@ Prior to deploying code, a Release Checklist MUST be completed which includes a 
 
 ## **Protection of Test Data**
 
-Test data shall be selected carefully, protected, and controlled. Confidential customer data shall be protected in accordance with all contracts and commitments. Customer data shall not be used for testing purposes without the explicit permission of the data owner and the Director of Engineering (or delegate). Where feasible, de‑identify or synthesize test data.
+Test data shall be selected carefully, protected, and controlled. Confidential customer data shall be protected in accordance with all contracts and commitments. Customer data shall not be used for testing purposes without the explicit permission of the data owner and the CTO (or delegate). Where feasible, de‑identify or synthesize test data.
 
 ## **Acquisition of Third‑Party Systems and Software**
 
@@ -155,12 +155,40 @@ Software developers shall be provided with secure development training appropria
 
 - Prefer workload identity federation (OIDC) from GitHub to Google Cloud; avoid long‑lived service account keys.  
 - If secrets are required, store in approved secret managers (GitHub Secrets with scoped access or Google Secret Manager); rotate promptly and audit usage.  
-- Build provenance and artifact attestations are generated where supported; releases may be signed per Cryptography Policy.
+- Build provenance and artifact attestations are generated where supported; releases are signed per the Cryptography Policy.
+
+## **Artifact Registry and Attestations (GCP/GAR)**
+
+- Google Artifact Registry is the authoritative registry for container/images; attestations must be published with builds and verified prior to promotion.  
+- Deployment gates verify Google Cloud Artifact Registry attestations before releasing to protected environments.  
+- GCS buckets storing build artifacts and model/data assets must retain object checksums and enable integrity verification during pipeline steps.
+
+## **Code Signing and Provenance (Supply Chain Security)**
+
+- Release Binaries (macOS, Linux, Windows): Must be signed using non‑exportable keys in a hardware‑secured key vault/HSM. Apply RFC 3161‑compliant timestamping. Verification of signatures is required in distribution pipelines.  
+- Windows: Code signing uses DigiCert Authenticode certificates; timestamping and signature verification are enforced in the release workflow.  
+- Container/Artifact Signing: Container images and critical artifacts must be signed; provenance (builder, sources, dependencies, timestamps) must be generated (e.g., SLSA provenance) and verified prior to promotion/deployment.  
+- Policy Enforcement: Deployment pipelines must verify signatures and attestations prior to release to protected environments. Unsigned or unverifiable artifacts are blocked.  
+- Keys & Rotation: Follow the Cryptography Policy for key management and rotation; prefer keyless/OIDC‑backed signing where feasible, with auditable identity binding.  
+- Evidence: Store signing logs and provenance/attestation records alongside releases; retain per retention policy.
+
+## **SBOM Generation and Dependency Hygiene (Recommended)**
+
+- SBOMs: Where feasible, generate a Software Bill of Materials (SBOM) for production releases (application and container) in CycloneDX format, using Syft (or equivalent) in CI. For native apps, generate from build output directories or installer artifacts (e.g., .dmg/.pkg/.msi). Store SBOMs with the release artifacts and make available to enterprise customers upon request under NDA.  
+- SCA / Dependency Updates: Enable automated dependency update workflows (e.g., Dependabot security updates). Critical/high vulnerabilities are triaged and remediated within defined SLAs; exceptions require documented risk acceptance.  
+- Third‑Party Licenses: Track license compliance via SBOM/SCA; remediation is required for non‑compliant licenses before release.
 
 ## **Threat Modeling and Design Reviews**
 
 - Perform threat modeling (e.g., STRIDE) for new features, significant architectural changes, or new data flows involving Confidential data.  
 - Document mitigations and track risks in the Risk Register as appropriate.
+
+## **ML/AI Development Considerations**
+
+- Data Usage: Customer personal data is not used for model training; use synthetic or approved non‑customer datasets consistent with Legal & Data policies.  
+- Artifact Control: Track dataset lineage and model artifact integrity (checksums/signing where feasible); restrict access by least privilege.  
+- Hugging Face Models/Datasets: Pin by exact revision (commit/hash) when referencing external models or datasets; mirror critical artifacts to GCS with checksum validation before use.  
+- Evaluation Data: Where evaluation involves Confidential data, apply de‑identification and access controls; retain only as long as necessary per Data Management Policy.
 
 # **Assurance & Evidence (Audit Readiness)**
 
@@ -171,16 +199,18 @@ We maintain the following evidence:
 - SAST/SCA findings and remediation tracking; release SBOMs where applicable.  
 - Release Checklists with security test results and approvals.  
 - CI/CD configuration (OIDC to GCP), secret scopes, and rotation evidence.  
+- Code signing logs, signature verification results, and artifact provenance/attestations.  
+- GAR attestation verification logs and deployment gate evidence; GCS checksum validation logs.  
 - Environment protection rules and deployment approvals for production.  
 - Training completion records for developers (onboarding and annual).  
 
 # **Exceptions**
 
-Requests for an exception to this policy must be submitted to the Director of Engineering (or CTO) for approval. Exceptions are time‑bound and must include scope, compensating controls, owner, and expiration.
+Requests for an exception to this policy must be submitted to the CTO for approval. Exceptions are time‑bound and must include scope, compensating controls, owner, and expiration.
 
 # **Violations & Enforcement**
 
-Any known violations of this policy should be reported to the Director of Engineering or Security/GRC. Violations may result in immediate withdrawal or suspension of system and network privileges and/or disciplinary action in accordance with company procedures up to and including termination of employment.
+Any known violations of this policy should be reported to the CTO or Security/GRC. Violations may result in immediate withdrawal or suspension of system and network privileges and/or disciplinary action in accordance with company procedures up to and including termination of employment.
 
 ## **TSC Mapping (SOC 2)**
 
@@ -204,6 +234,6 @@ Any known violations of this policy should be reported to the Director of Engine
 | :---: | :---: | :--- | :--- | :--- |
 | 1.0.0 | 08-Mar-2023 | First Version | Mark Widman | Tsavo Knott (CEO) |
 | 1.1.0 | 15-Aug-2023 | Updates to Secure System Engineering Principles | Georgia Donmoyer | Mack Myers |
-| 1.2.0 | 19-Aug-2025 | 2025 Refresh; platform/pipeline controls; evidence | Executive Leadership | Tsavo Knott (CEO) |
+| 1.2.0 | 19-Aug-2025 | 2025 Refresh | Executive Leadership | Tsavo Knott (CEO) |
 
 
