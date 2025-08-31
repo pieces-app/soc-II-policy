@@ -129,7 +129,7 @@ When legal holds apply, data subject to the hold is exempt from standard deletio
 
 We maintain the following evidence to demonstrate compliance:
 - Data inventories with classification labels and owners.
-- Semiannual access reviews and attestations for Confidential/Restricted systems; audit logs retained ≥ 365 days.
+- Semiannual access reviews and attestations for Confidential/Restricted systems; audit logs for internal compliance purposes retained ≥ 365 days. Customer-facing security & access logs are retained for a minimum of 90 days per the *Legal & Security Policies (Customer-Facing)*.
 - Backup and restore test records (quarterly) and retention configurations (35-day backups).
 - Certificates of Destruction (≥ 7 years) for sanitized/destroyed devices and media.
 - Vendor assessments, DPAs, and documented retention/disposal controls for processors.
@@ -140,7 +140,7 @@ We maintain the following evidence to demonstrate compliance:
 
 We maintain the following evidence to demonstrate compliance:
 - Data inventories with classification labels and owners.
-- Access reviews and attestations for Confidential/Restricted systems; audit logs retained ≥ 365 days.
+- Access reviews and attestations for Confidential/Restricted systems; audit logs for internal compliance purposes retained ≥ 365 days. Customer-facing security & access logs are retained for a minimum of 90 days per the *Legal & Security Policies (Customer-Facing)*.
 - Backup and restore test records (quarterly) and retention configurations (35-day backups).
 - Certificates of Destruction (≥ 7 years) for sanitized/destroyed devices and media.
 - Vendor assessments, DPAs, and documented retention/disposal controls for processors.
@@ -219,7 +219,7 @@ Note: Customer-facing product data retention is defined in the Legal & Security 
 | System or Record | Retention Period | Notes |
 | :--- | :---: | :--- |
 | Information Security Records | 1 year after archive | May be extended by legal hold |
-| Security & Access Logs | ≥ 365 days | Aligns with 2023 baseline and Legal Policy minimums |
+| Security & Access Logs | ≥ 365 days | **Important distinction:** This 365-day retention applies to INTERNAL audit and compliance logs only. Customer-facing security logs in production systems are retained for 90 days minimum per our external Legal & Security Policies. The longer retention for internal logs supports SOC 2 and regulatory compliance requirements. |
 | Audit Logs | ≥ 1 year | System/application/infrastructure audit trails |
 | Telemetry & Diagnostics | 180 days (rolling) | Operational monitoring |
 | Customer Support Tickets | Indefinite | May be reduced per contract or privacy requirements; extended by legal hold |

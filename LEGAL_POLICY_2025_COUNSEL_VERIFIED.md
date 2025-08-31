@@ -363,14 +363,14 @@ Incident Classification & Response Procedures:
 
 Customer Notification Procedures:
 
-* Timeline: We endeavor to notify affected customers within 24 hours of confirming a security incident that may reasonably impact their data, subject to investigation requirements and legal constraints.  
+* Timeline: We will notify affected customers within **24 hours** of confirming a security incident that may reasonably impact their data, subject to investigation requirements and legal constraints.  
 * Communication: Direct notification to designated customer contacts with available incident details, impact assessment, and remediation measures being undertaken.  
 * Collaboration: We provide reasonable cooperation in customer security investigations, including access to relevant logs and forensic evidence, subject to legal limitations and technical feasibility.  
 * Transparency: Regular updates throughout incident resolution with final post-incident reports provided where appropriate.
 
 Regulatory Compliance:
 
-* GDPR breach notifications to supervisory authorities within 72 hours when required by applicable law.  
+* **GDPR breach notifications** to supervisory authorities within **72 hours** when required by applicable law.  
 * Compliance with industry-specific notification requirements (including NIS2, state breach notification laws) as applicable to our operations.
 
 ### **5.6 Availability & Uptime Commitments**
@@ -527,17 +527,16 @@ Data Residency Assurances:
 
 ### **7.2 Cloud Infrastructure & Self-Hosting Options**
 
-Google Cloud Platform Foundation:
+**Configurable Hybrid Architecture:**
 
-* Our infrastructure is built upon Google Cloud Platform, thereby benefiting from enterprise-grade security, compliance, and availability features, subject to GCP's terms and service limitations.  
-* Multi-region redundancy with automated failover capabilities is implemented where technically feasible and commercially reasonable.  
-* Customer data storage remains within customer-specified geographic boundaries, subject to service requirements and technical limitations.
+* **Default Blended Mode (~85% on-device, ~15% cloud):** Core processing and persistent storage occur on user devices, with ephemeral cloud processing for enhanced AI features. Cloud-processed data is not retained post-inference.
+* **Air-Gapped Mode:** 100% on-device processing with local SLMs for environments requiring complete network isolation.
+* **Enterprise Controls:** Customers can enforce org-wide policies, including restricting cloud models via SSO, bringing their own keys (BYOK), or mandating air-gapped operation.
 
-Self-Hosting Solutions:
+**Cloud Proxy Architecture & BYOK:**
 
-* Enterprise Container Deployment: We provide containerized deployment options for customers requiring on-premises or private cloud hosting, subject to technical requirements and support limitations.  
-* Google Cloud Private Deployment: Self-hosting options may be available on customer-controlled Google Cloud infrastructure using our provided containers and documentation, subject to support terms and technical feasibility.  
-* Data Sovereignty: Complete customer control over data location and access in self-hosted deployments, subject to customer's technical implementation and ongoing management responsibilities.
+* All LLM operations currently require our cloud proxy services for secure protocol translation (gRPC to REST), authentication, and policy enforcement, even with BYOK configurations.
+* Future roadmap includes containerized deployment options for on-premises hosting of proxy services, subject to technical feasibility and support agreements (not currently available).
 
 ### **7.3 Multi-Tenant Architecture & Isolation**
 
@@ -573,10 +572,20 @@ Audit & Compliance:
 
 Simplified Supply Chain Architecture:
 
-* We maintain a minimal vendor dependency model, relying exclusively on:  
-  * Google Cloud Platform for infrastructure and core services  
-  * GitHub for code repository and development workflow security  
-  * Sentry.io for Crashlytics, Descope.com for Authentication, Paddle.com for Payments, Satismeter for NPS and Product Feedback, Mixpanel.io, and Segment.com, HubSpot.com for Support and Customer.io for Email Communications
+* We maintain a minimal vendor dependency model, relying on:  
+  * **Google Cloud Platform** for infrastructure and core services  
+  * **GitHub** for code repository and development workflow security  
+  * **Paddle.com** for Payments (Merchant of Record)
+  * **Descope.com** for Authentication
+  * **Sentry.io** for Crashlytics (PII scrubbed)
+  * **SendGrid** for email delivery
+  * **HubSpot.com** for CRM and Support
+  * **Segment.com** & **Mixpanel.io** for abuse detection and usage metrics (anonymized, opt-in)
+  * **Satismeter** for NPS and Product Feedback (rare, optional)
+  * **Customer.io** for Email Communications
+  * **Hugging Face** for on-device SLM/LLM model registry & download source
+  * **Google Workspace** for email & productivity
+  * **Communication Channels:** Slack, Discord, Google Chat, and Gmail
 
 Vendor Security Assessment:
 
@@ -592,6 +601,7 @@ Component Transparency & Management:
 * Open Source Components: All open source dependencies are tracked with version information and known vulnerability status monitoring.  
 * Vulnerability Management: Automated scanning and remediation of dependencies with security updates applied in accordance with our change management procedures.  
 * Customer Access: SBOM information is available to enterprise customers upon reasonable request for their security assessment purposes, subject to confidentiality restrictions.
+* Subprocessor Changes: We provide thirty (30) days advance written notice of material changes to our subprocessor list, allowing customers to review and object to changes that may affect their data processing requirements.
 
 Supply Chain Security Measures:
 
@@ -667,8 +677,8 @@ Tiered Support Model:
 
 | Priority Level | Initial Response Time | Target Resolution | Availability |
 | :---- | :---- | :---- | :---- |
-| Critical (P1) | 4 hour | 12 hours | Continuous availability |
-| High (P2) | 8 hours | 36 hours | Business hours |
+| Critical (P1) | 1 hour | 12 hours | 24/7/365 |
+| High (P2) | 4 hours | 36 hours | Business hours |
 | Medium (P3) | 12 hours | 72 hours | Business hours |
 | Low (P4) | 24 hours | Best effort | Business hours |
 

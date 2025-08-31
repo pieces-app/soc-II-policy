@@ -3,3 +3,9 @@
 ## SOC 2 Policy System (Root Index)
 
 This repository is the single source of truth for our SOC 2 Type II policy system. It organizes policies, standards, procedures, and controls, and maps them to the AICPA Trust Services Criteria (TSC). Use this file as your starting point for navigation, authoring, and audit readiness.
+
+### Quick Links
+- **[FAQ Documentation](./FAQ/)** - Vendor assessment FAQs and procurement responses
+- **[Company Profile](./COMPANY_PROFILE.md)** - Organization overview
+- **[Policies Overview](./POLICIES_OVERVIEW.md)** - Complete policy framework
+- **[Legal Policies](./LEGAL_POLICY_2025_COUNSEL_VERIFIED.md)** - Customer-facing legal documentation

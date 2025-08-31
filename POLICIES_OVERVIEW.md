@@ -36,3 +36,9 @@
 
 - Pieces Legal & Security Policies (v1.2)
   - Current: [LEGAL_POLICY_2025_COUNSEL_VERIFIED.md](LEGAL_POLICY_2025_COUNSEL_VERIFIED.md)
+
+### Supporting Documentation
+
+- **Vendor Assessment FAQs**: [FAQ Documentation](FAQ/)
+  - [Common FAQs](FAQ/common.md) - Comprehensive vendor assessment responses
+  - [IMC Procurement Response](FAQ/imc-procurement-response.md) - Specific response template for IMC review
