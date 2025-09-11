@@ -11,13 +11,14 @@
 1. [Underlying Code & Training Data](#1-underlying-code--training-data)
 2. [Data Ownership](#2-data-ownership)
 3. [Data Privacy & Security](#3-data-privacy--security)
-4. [Learning Capabilities](#4-learning-capabilities)
-5. [Terms & Conditions](#5-terms--conditions)
-6. [Vendor Maturity & Certifications](#6-vendor-maturity--certifications)
-7. [Licensing & Pricing](#7-licensing--pricing)
-8. [Technical Architecture](#8-technical-architecture)
-9. [Compliance & Regulatory](#9-compliance--regulatory)
-10. [Support & SLAs](#10-support--slas)
+4. [Data Retention & Configuration](#4-data-retention--configuration)
+5. [Learning Capabilities](#5-learning-capabilities)
+6. [Terms & Conditions](#6-terms--conditions)
+7. [Vendor Maturity & Certifications](#7-vendor-maturity--certifications)
+8. [Licensing & Pricing](#8-licensing--pricing)
+9. [Technical Architecture](#9-technical-architecture)
+10. [Compliance & Regulatory](#10-compliance--regulatory)
+11. [Support & SLAs](#11-support--slas)
 
 ---
 
@@ -176,7 +177,137 @@ All subprocessors:
 
 ---
 
-## 4. Learning Capabilities
+## 4. Data Retention & Configuration
+
+### Q: What are the standard data retention periods?
+
+**A: Comprehensive retention schedule with enterprise flexibility.**
+
+**Customer-Facing Data (Default):**
+| Data Category | Standard Retention Period | Controls |
+|:---|:---|:---|
+| **Account & Billing Data** | Account duration + 7 years post-termination | Required for tax, audit, and regulatory compliance |
+| **User-Generated Content** | Until user deletion or account termination; backup retention up to 35 days | User-controlled deletion available |
+| **Telemetry & Diagnostics** | 180 days (rolling basis) | Automated purging |
+| **Security & Access Logs** | 90 days minimum (rolling basis) | SOC 2 and ISO 27001 compliant |
+| **De-identified/Aggregated Data** | Until no longer required for business purposes | Opt-out controls available |
+| **Support & Communications** | 2 years following case closure | Standard customer service defensibility |
+
+**Internal Corporate Data:**
+| Data Category | Retention Period | Notes |
+|:---|:---|:---|
+| **Internal Security & Access Logs** | ≥365 days | Longer retention for SOC 2 compliance |
+| **Audit Logs** | ≥1 year | System/application/infrastructure trails |
+| **Customer Support Tickets** | Indefinite | May be reduced per contract or privacy requirements |
+| **Audit Reports** | 2 years | Internal/external assessments |
+| **Certificates of Destruction** | ≥7 years | For device/media disposal |
+
+### Q: How can retention be configured for enterprise customers?
+
+**A: Highly customizable through multiple mechanisms.**
+
+**Enterprise Customization Options:**
+- **Alternative retention schedules** available through separate Data Processing Addenda (DPA) or Enterprise Service Agreements
+- **Zero-retention policies** can be negotiated for specific data types
+- **Bespoke arrangements** subject to technical feasibility and commercial terms
+- **Admin Dashboard Control** for centralized configuration
+
+**Cloud Processing Options:**
+- **Ephemeral processing with zero retention** by default for LLM inference
+- **Optional audit logging** can be enabled upon explicit customer request
+- **Custom retention periods** can be configured per contract
+
+### Q: What deletion controls are available?
+
+**A: Multi-level deletion capabilities with verification.**
+
+**Self-Service Options:**
+- Item-level deletion through product interface
+- Account-level deletion via settings or support@pieces.app
+- Immediate effect with confirmation
+
+**Enterprise Options:**
+- Project-wide or workspace-level bulk deletions
+- Enterprise API functionality for programmatic deletion
+- Written confirmation of deletion completion provided
+- Custom deletion schedules via DPA
+
+**Deletion Timeline:**
+- **Primary System:** 30 days (standard) or 60 days (complex requests)
+- **Backup Systems:** 35 days following primary deletion
+- **Export Window:** 60 days post-termination for data export
+- **Deletion Certification:** Written confirmation within 30 business days
+
+### Q: How are backup and recovery configured?
+
+**A: Enterprise-grade backup with flexible configuration.**
+
+**Standard Configuration:**
+- Encrypted daily backups with 35-day rolling retention
+- Multi-zone redundancy with automatic failover
+- Quarterly restore testing to verify data recoverability
+- AES-256 encryption for all backups
+
+**Enterprise Options:**
+- Alternative backup schedules available in service agreements
+- Custom retention periods based on requirements
+- Dedicated backup infrastructure for large deployments
+- Point-in-time recovery capabilities
+
+### Q: What centralized admin controls are available?
+
+**A: Comprehensive admin dashboard for enterprise management.**
+
+**Admin Dashboard Capabilities:**
+- **SSO Integration:** Settings propagate automatically when users sign in with enterprise email
+- **Processing Mode Control:** Set air-gapped, blended, or cloud-only modes org-wide or per-user
+- **Application Allowlisting:** Control which apps can enable memory features
+- **LLM Provider Management:** Restrict to specific providers (OpenAI, Anthropic, Google)
+- **BYOK Configuration:** Integrate existing enterprise LLM licenses
+- **Retention Settings:** Configure custom retention periods per data type
+- **Audit Controls:** Enable/disable audit logging and telemetry
+- **Compliance Settings:** Configure for specific regulatory requirements
+
+### Q: What technical controls enforce retention policies?
+
+**A: Automated and manual controls ensure compliance.**
+
+**Automated Controls:**
+- Rolling deletion for logs (90-365 days depending on type)
+- Automatic purging of temporary files upon process completion
+- Cryptographic rendering of deleted data in backup systems
+- Scheduled retention jobs with monitoring and alerting
+
+**Manual Controls:**
+- Annual policy review and compliance audits
+- Semiannual access reviews for Confidential/Restricted systems
+- Legal hold procedures for data subject to litigation
+- Documented exception process with executive approval
+
+**Compliance Features:**
+- **Opt-Out Controls:** Individual and enterprise-level for model improvement
+- **Legal Compliance:** Extended retention for regulatory requirements
+- **Multi-Tenancy Controls:** Tenant-specific configuration without cross-contamination
+- **Audit Trail:** Complete logging of all retention and deletion activities
+
+### Q: What are the key retention configuration principles?
+
+**A: Four core principles guide our approach.**
+
+1. **Data Minimization:** Retain only what's necessary for business purposes
+2. **User Autonomy:** Users control their content deletion
+3. **Legal Compliance:** Retention extended for regulatory requirements
+4. **Industry Alignment:** Practices align with AI productivity tool standards
+
+**Important Notes:**
+- All retention policies reviewed annually
+- Configuration changes take effect immediately unless otherwise specified
+- Custom requirements can be discussed during contract negotiation
+- No penalty or functionality loss for choosing stricter retention settings
+
+---
+
+## 5. Learning Capabilities
 
 ### Q: Does Pieces learn from customer data?
 
@@ -214,7 +345,7 @@ All subprocessors:
 
 ---
 
-## 5. Terms & Conditions
+## 6. Terms & Conditions
 
 ### Q: What agreements are available for review?
 
@@ -245,7 +376,7 @@ All subprocessors:
 
 ---
 
-## 6. Vendor Maturity & Certifications
+## 7. Vendor Maturity & Certifications
 
 ### Q: What is your current funding status?
 
@@ -285,7 +416,7 @@ All subprocessors:
 
 ---
 
-## 7. Licensing & Pricing
+## 8. Licensing & Pricing
 
 ### Q: Do you offer enterprise licensing or per-seat?
 
@@ -326,7 +457,7 @@ All subprocessors:
 
 ---
 
-## 8. Technical Architecture
+## 9. Technical Architecture
 
 ### Q: What deployment options are available?
 
@@ -376,7 +507,7 @@ All subprocessors:
 
 ---
 
-## 9. Compliance & Regulatory
+## 10. Compliance & Regulatory
 
 ### Q: What compliance frameworks do you support?
 
@@ -407,7 +538,7 @@ All subprocessors:
 
 ---
 
-## 10. Support & SLAs
+## 11. Support & SLAs
 
 ### Q: What support levels are available?
 

@@ -171,7 +171,100 @@ Pieces is an AI-powered developer productivity platform that operates with a loc
 
 ---
 
-### 4. Learning Capabilities
+### 4. Data Retention, Configuration & Admin Controls
+
+#### Q: What are IMC's configuration options for data retention?
+
+**Answer:**
+
+**Standard Retention Periods (Configurable):**
+
+| Data Category | Default Retention | IMC Configuration Options |
+|:---|:---|:---|
+| **User-Generated Content** | Until deletion/account closure | Customizable via DPA |
+| **Security/Access Logs** | 90 days (SOC 2 requirement) | Extendable to 365+ days |
+| **Telemetry & Diagnostics** | 180 days rolling | Can be disabled entirely |
+| **Support Communications** | 2 years after closure | Adjustable per requirements |
+| **Backups** | 35-day rolling retention | Custom schedules available |
+| **Cloud Processing (LLM)** | Zero retention (ephemeral) | Optional audit logging |
+
+**Enterprise Customization for IMC:**
+- Complete flexibility through DPA negotiations
+- Zero-retention policies available for specific data types
+- Custom deletion schedules and timelines
+- Automated retention enforcement with audit trails
+
+#### Q: How can IMC centrally manage settings across all users?
+
+**Answer:**
+
+**Admin Dashboard Features:**
+- **SSO Integration:** Settings automatically propagate when users sign in with @imc.com email
+- **Centralized Control Panel:** Managed by Nevhan or designated IMC admin
+- **Configurable Settings Include:**
+  - Processing mode (air-gapped, blended, cloud-only) org-wide or per-user
+  - Allowed applications for memory features
+  - Approved LLM providers (OpenAI, Anthropic, Google)
+  - Custom API keys for existing IMC enterprise LLM licenses
+  - Data retention periods per category
+  - Audit logging and telemetry settings
+  - Compliance configurations
+
+**User Provisioning:**
+- Automatic configuration on first SSO login
+- No individual user setup required
+- Central policy enforcement
+- Override capabilities for specific users/groups if needed
+
+#### Q: What deletion controls and timelines apply?
+
+**Answer:**
+
+**Deletion Capabilities:**
+- **Self-Service:** Users can delete individual items or full account
+- **Bulk Operations:** Admin-initiated project/workspace deletions
+- **API Access:** Programmatic deletion for automation
+- **Verification:** Written confirmation provided within 30 business days
+
+**Deletion Timeline:**
+| Stage | Timeline |
+|:---|:---|
+| Primary System Deletion | 30 days (standard) / 60 days (complex) |
+| Backup System Purge | 35 days after primary deletion |
+| Data Export Window | 60 days post-termination |
+| Deletion Certificate | Within 30 business days of completion |
+
+**IMC-Specific Options:**
+- Custom deletion workflows
+- Immediate deletion for sensitive data
+- Legal hold procedures
+- Automated deletion policies
+
+#### Q: How are retention policies technically enforced?
+
+**Answer:**
+
+**Automated Controls:**
+- Scheduled retention jobs with monitoring
+- Automatic log rotation (90-365 days based on type)
+- Cryptographic deletion in backup systems
+- Real-time compliance monitoring and alerting
+
+**Audit & Compliance:**
+- Complete audit trail of all retention/deletion activities
+- Annual policy reviews
+- Quarterly compliance assessments
+- Exception handling with executive approval
+
+**Multi-Tenancy Isolation:**
+- IMC data completely isolated from other customers
+- Tenant-specific retention configurations
+- No cross-contamination of settings or data
+- Independent audit logs per tenant
+
+---
+
+### 5. Learning Capabilities
 
 #### Q: Does Pieces learn from customer data (fine-tuning, embeddings, federated learning)?
 
@@ -199,7 +292,7 @@ Pieces is an AI-powered developer productivity platform that operates with a loc
 
 ---
 
-### 5. Terms & Conditions
+### 6. Terms & Conditions
 
 #### Q: Please share the latest MSA and DPA for review against IMC standards.
 
@@ -220,7 +313,7 @@ Pieces is an AI-powered developer productivity platform that operates with a loc
 
 ---
 
-### 6. Vendor Maturity
+### 7. Vendor Maturity
 
 #### Q: Current funding status (VC-backed, revenue stage)?
 
@@ -258,7 +351,7 @@ Pieces is an AI-powered developer productivity platform that operates with a loc
 
 ---
 
-### 7. Licensing
+### 8. Licensing
 
 #### Q: Do you offer enterprise licensing, or is it per-seat?
 
