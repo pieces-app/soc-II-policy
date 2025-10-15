@@ -1,6 +1,6 @@
 # Pieces Vendor Assessment FAQ
-**Version:** 1.0.0  
-**Last Updated:** January 2025  
+**Version:** 1.1.0  
+**Last Updated:** September 2025  
 **Purpose:** Central reference for vendor assessments, procurement reviews, and security due diligence  
 **Audience:** Procurement teams, security assessors, legal teams, and prospective enterprise customers
 
@@ -11,13 +11,25 @@
 1. [Underlying Code & Training Data](#1-underlying-code--training-data)
 2. [Data Ownership](#2-data-ownership)
 3. [Data Privacy & Security](#3-data-privacy--security)
+   - [Hybrid Architecture](#q-is-pieces-local-firstoffline-or-does-data-flow-to-cloud-servers)
+   - [BYOK Configuration](#q-can-we-set-up-our-own-api-keysaccounts-with-openai-claude-gemini-and-other-providers)
+   - [Encryption & Storage](#q-what-are-your-policies-on-data-transmission-encryption-and-storage)
+   - [Subprocessors](#q-are-subprocessors-used-if-so-where-are-they-located)
+   - [GDPR Compliance](#q-how-does-pieces-ensure-gdpr-compliance)
 4. [Data Retention & Configuration](#4-data-retention--configuration)
 5. [Learning Capabilities](#5-learning-capabilities)
 6. [Terms & Conditions](#6-terms--conditions)
 7. [Vendor Maturity & Certifications](#7-vendor-maturity--certifications)
 8. [Licensing & Pricing](#8-licensing--pricing)
 9. [Technical Architecture](#9-technical-architecture)
+   - [Deployment Options](#q-what-deployment-options-are-available)
+   - [Multi-tenancy](#q-how-is-multi-tenancy-isolation-ensured)
+   - [Windows Compatibility](#q-what-is-the-status-of-windows-com-errors-and-the-optional-update)
+   - [NPU Integration](#q-when-will-npu-apis-be-available-for-third-party-integration)
 10. [Compliance & Regulatory](#10-compliance--regulatory)
+   - [Compliance Frameworks](#q-what-compliance-frameworks-do-you-support)
+   - [Global Relay & FINRA](#q-does-pieces-integrate-with-global-relay-or-support-finra-books-and-records-compliance-requirements)
+   - [Customer Audits](#q-how-do-you-support-customer-audits)
 11. [Support & SLAs](#11-support--slas)
 
 ---
@@ -93,6 +105,19 @@
 - **BYOK:** Use customer's existing GCP Gemini, OpenAI, or Claude Enterprise licenses (**Important:** ALL BYOK configurations still require our cloud proxy services for protocol translation, authentication, and policy enforcement - true air-gapped BYOK is not technically possible)
 - **Air-Gapped:** 100% offline operation with local SLMs (no internet required)
 - Configuration can be set org-wide or per-user
+
+### Q: Can we set up our own API keys/accounts with OpenAI, Claude, Gemini, and other providers?
+
+**A: Yes, through our BYOK (Bring Your Own Key) configuration.**
+
+- **Supported Providers**: OpenAI, Anthropic Claude, Google Gemini (via GCP)
+- **Account Management**: You maintain full control of your provider accounts and billing
+- **Key Security**: Your API keys are encrypted and never stored in our cloud infrastructure
+- **Important Note**: While you use your own keys, requests still route through our proxy for:
+  - Protocol translation and standardization
+  - Authentication and policy enforcement
+  - Rate limiting and abuse prevention
+- **Alternative**: For complete independence from our proxy, use Air-Gapped mode with local models
 
 **Minimal Cloud Metadata (<1% - operational only):**
 - Authentication tokens (session state)
@@ -505,6 +530,33 @@ All subprocessors:
 - **Audit Isolation**: Separate audit logs per tenant
 - **Network Segmentation**: VPC isolation for enterprise customers
 
+### Q: What is the status of Windows COM errors and the optional update?
+
+**A: We are actively monitoring and addressing Windows compatibility issues.**
+
+- **Known Issue**: COM (Component Object Model) errors on certain Windows configurations
+- **Windows Update Status**: We work closely with Microsoft to ensure compatibility with all Windows updates
+- **Current Workarounds**: 
+  - Run application with elevated privileges if COM errors occur
+  - Ensure Windows is fully updated to latest stable release
+  - Re-register COM components via our diagnostic tool
+- **Resolution Timeline**: Permanent fix targeted for Q1 2025 release
+- **Support**: Contact support@pieces.app for immediate assistance with COM errors
+
+### Q: When will NPU APIs be available for third-party integration?
+
+**A: NPU-accelerated features are on our roadmap.**
+
+- **Current Status**: NPU acceleration in development and testing phase
+- **Target Features**:
+  - OCR (Optical Character Recognition) with NPU acceleration
+  - Superresolution for image enhancement
+  - Real-time transcription and translation
+- **API Availability**: Public API for NPU features targeted for Q2 2025
+- **Hardware Support**: Intel NPUs, Apple Neural Engine, Qualcomm Hexagon
+- **Early Access**: Enterprise customers can request preview access
+- **Documentation**: API specifications will be published 30 days before GA
+
 ---
 
 ## 10. Compliance & Regulatory
@@ -524,6 +576,71 @@ All subprocessors:
 - Industry-specific frameworks
 - Regional privacy laws
 - Custom compliance attestations
+
+### Q: Does Pieces integrate with Global Relay or support FINRA "books and records" compliance requirements?
+
+**A: Pieces is compatible with financial services compliance requirements, including FINRA regulations.**
+
+**FINRA Compliance Context:**
+- **FINRA** (Financial Industry Regulatory Authority) is a U.S. regulator overseeing broker-dealers and financial firms
+- **Books and Records Requirements**: FINRA Rule 4511 requires firms to maintain records of business communications
+- **Retention Periods**: Typically 3-6 years depending on record type
+- **Supervision**: Electronic communications must be subject to firm supervision and retention
+
+**Pieces Architecture & FINRA Compliance:**
+
+**Data Locality Advantages:**
+- **>99% On-Device Storage**: All conversations, code snippets, and workflow data persist locally on user devices
+- **No Cloud Retention**: Cloud processing is ephemeral (input/output only) with zero retention
+- **Firm Control**: Your organization maintains custody of all records on corporate-managed devices
+- **Existing Backup Systems**: Data can be captured by your existing endpoint backup and archiving solutions
+
+**Integration Approaches with Global Relay:**
+
+**Option 1: Endpoint Archiving (Recommended)**
+- Deploy Global Relay's endpoint agents or similar archiving tools on user workstations
+- Archive Pieces data from local storage directories
+- Pieces local database accessible at standard locations
+- Compatible with standard endpoint data loss prevention (DLP) and archiving solutions
+
+**Option 2: Managed Device Controls**
+- Deploy Pieces on corporate-managed devices
+- Use existing Mobile Device Management (MDM) or endpoint security tools
+- Leverage Windows/macOS enterprise backup solutions
+- Centralized IT control over local data stores
+
+**Option 3: Air-Gapped/Self-Hosted Deployment**
+- 100% on-premises deployment option available
+- Complete organizational control over infrastructure
+- Integration with internal archiving and monitoring systems
+- No external service dependencies
+
+**What Pieces Does NOT Do (Important Clarification):**
+- **Not a Communication Platform**: Pieces is a developer workflow tool, not a communication/collaboration platform like Slack or Teams
+- **Not Real-Time Messaging**: No peer-to-peer messaging that would require FINRA archiving
+- **Code & Context Management**: Primarily stores code snippets, technical context, and workflow memory
+
+**Typical Use Case for Financial Services:**
+Financial services development teams use Pieces for:
+- Secure code snippet management (proprietary algorithms, trading logic)
+- Workflow context preservation (project history, technical decisions)
+- On-device AI assistance for code generation and debugging
+- Development productivity without exposing code to third-party cloud services
+
+**Documentation for Compliance Teams:**
+We provide:
+- Architecture diagrams showing data flow and storage locations
+- Technical documentation on local storage structure
+- Integration guides for enterprise archiving solutions
+- Contractual commitments on data handling in MSA/DPA
+
+**Contact for FINRA-Specific Discussions:**
+For detailed technical integration planning with your compliance and archiving infrastructure:
+- **Enterprise Sales**: enterprise@pieces.app
+- **Security Team**: security@pieces.app (for compliance architecture review)
+- **Custom Integration Support**: Available for enterprise customers
+
+**Note**: While Pieces does not have a native, out-of-the-box connector to Global Relay, the local-first architecture makes it compatible with standard enterprise archiving approaches used by regulated financial institutions.
 
 ### Q: How do you support customer audits?
 
@@ -645,7 +762,7 @@ Available upon request under NDA:
 
 *This FAQ is maintained by the Pieces Security and Legal teams. For the most current information or specific questions not addressed here, please contact our team directly.*
 
-**Document Version:** 1.0.0  
-**Last Review:** January 2025  
-**Next Review:** April 2025  
+**Document Version:** 1.1.0  
+**Last Review:** September 2025  
+**Next Review:** December 2025  
 **Classification:** External/Public with NDA for certain sections

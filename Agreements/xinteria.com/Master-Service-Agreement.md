@@ -27,7 +27,7 @@ Fields to complete:
 
 and  
 
-**_______________________________________**, organized under the laws of _____________________ ("**Customer**")
+**_______________________________________ (Xinteria)**, organized under the laws of _____________________ ("**Customer**")
 
 Each a "**Party**" and collectively the "**Parties**"
 
@@ -332,7 +332,7 @@ Title: ______________________________
 Date: _______________________________
 
 **CUSTOMER:**  
-__________________________________________
+_______________________________________ (Xinteria)
 
 By: _________________________________  
 Name: _______________________________  
@@ -471,7 +471,7 @@ Provider may suspend or terminate access for violations after notice and opportu
 
 This Exhibit provides a template structure for Statements of Work executed under this MSA. Each SOW should be customized to the specific engagement and may include additional sections as needed.
 
-**Note:** Comprehensive SOW templates (referred to as "MSA Exhibit E SOW") are available for specific deployment types, which include:
+**Note:** A comprehensive SOW template specific to Xinteria's deployment is available as a separate document (MSA Exhibit E SOW) which includes:
 - Detailed enterprise deployment specifications
 - LLM configuration options (Blended, BYOK, Air-Gapped)
 - Data processing and residency details
@@ -563,7 +563,7 @@ This Exhibit provides a template structure for Statements of Work executed under
 ## ACCEPTANCE
 
 **CUSTOMER:**  
-_______________________________________
+_______________________________________ (Xinteria)
 
 By: _________________________________  
 Name: _______________________________  
